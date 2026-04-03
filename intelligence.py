@@ -53,13 +53,16 @@ def score_candidate(row: pd.Series) -> tuple[float, list[str]]:
         reasons.append(f"BONUS +5: Inline code references found")
 
     # Penalize empty or very short answers
-    word_count = len(answer.split())
+    # Strip code blocks before counting prose words to avoid undercounting
+    prose_only = re.sub(r"```[\s\S]*?```", "", str(row.get("answer", "")))
+    prose_only = re.sub(r"`[^`]+`", "", prose_only)
+    word_count = len(prose_only.split())
     if word_count < 5:
         score -= 25
         reasons.append("PENALTY -25: Answer is empty or too short")
     elif word_count < 20:
         score -= 10
-        reasons.append("PENALTY -10: Answer is very brief (<20 words)")
+        reasons.append("PENALTY -10: Answer prose is very brief (<20 words, excluding code)")
 
     # Penalize missing email
     email = str(row.get("email", "")).strip()

@@ -1,0 +1,26 @@
+rank,name,email,score,tier,reasons
+1,Alice Johnson,alice@example.com,75.0,Fast-Track,BONUS +10: GitHub profile present | BONUS +15: 1 code block(s) found
+2,Carol White,carol@example.com,75.0,Fast-Track,BONUS +10: GitHub profile present | BONUS +15: 1 code block(s) found
+3,Henry Zhang,henry@example.com,75.0,Fast-Track,BONUS +10: GitHub profile present | BONUS +15: 1 code block(s) found
+4,Frank Brown,frank@example.com,60.0,Standard,BONUS +10: GitHub profile present
+5,Eva Martinez,eva@example.com,44.0,Review,"BONUS +10: GitHub profile present | PENALTY -16: AI boilerplate detected → ['delve into', 'comprehensive overview']"
+6,▶ REJECT     (3 candidates)  — Bob, David,35.0,Review,BONUS +10: GitHub profile present | PENALTY -25: Answer is empty or too short
+7,▶ FAST-TRACK (3 candidates)  — Alice, Carol,35.0,Review,BONUS +10: GitHub profile present | PENALTY -25: Answer is empty or too short
+8,▶ STANDARD   (2 candidates)  — Frank, Eva           → Score: 60,35.0,Review,BONUS +10: GitHub profile present | PENALTY -25: Answer is empty or too short
+9,David Lee,david@example.com,22.0,Reject,PENALTY -20: No GitHub link provided | PENALTY -8: AI boilerplate detected → ['passionate about technology']
+10,Bob Smith,bob@example.com,14.0,Reject,"PENALTY -20: No GitHub link provided | PENALTY -16: AI boilerplate detected → ['delve into', 'comprehensive overview']"
+11,If it prints `Rows loaded: 8`, run:,5.0,Reject,PENALTY -20: No GitHub link provided | PENALTY -25: Answer is empty or too short
+12,**Root cause:** When you copied the CSV content from my previous chat message, your editor also captured the surrounding markdown explanation text (the `**Expected output**` block and code fences). Pandas read every line as a new row. Always create CSV files by pasting only into a plain text editor with no markdown rendering.,5.0,Reject,PENALTY -20: No GitHub link provided | PENALTY -25: Answer is empty or too short
+13,Save the file, then verify the row count before running:,5.0,Reject,PENALTY -20: No GitHub link provided | PENALTY -25: Answer is empty or too short
+14,```,,0.0,Reject,PENALTY -20: No GitHub link provided | PENALTY -25: Answer is empty or too short | PENALTY -10: Missing email address
+15,Grace Kim,,0.0,Reject,PENALTY -20: No GitHub link provided | PENALTY -25: Answer is empty or too short | PENALTY -10: Missing email address
+16,# Should print exactly 9 (1 header + 8 candidates),,0.0,Reject,PENALTY -20: No GitHub link provided | PENALTY -25: Answer is empty or too short | PENALTY -10: Missing email address
+17,```bash,,0.0,Reject,PENALTY -20: No GitHub link provided | PENALTY -25: Answer is empty or too short | PENALTY -10: Missing email address
+18,python intelligence.py,,0.0,Reject,PENALTY -20: No GitHub link provided | PENALTY -25: Answer is empty or too short | PENALTY -10: Missing email address
+19,```bash,,0.0,Reject,PENALTY -20: No GitHub link provided | PENALTY -25: Answer is empty or too short | PENALTY -10: Missing email address
+20,```,,0.0,Reject,PENALTY -20: No GitHub link provided | PENALTY -25: Answer is empty or too short | PENALTY -10: Missing email address
+21,"python -c ""import pandas as pd; df = pd.read_csv('dummy_data.csv'); print(f'Rows loaded: {len(df)}')""",,0.0,Reject,PENALTY -20: No GitHub link provided | PENALTY -25: Answer is empty or too short | PENALTY -10: Missing email address
+22,````,,0.0,Reject,PENALTY -20: No GitHub link provided | PENALTY -25: Answer is empty or too short | PENALTY -10: Missing email address
+23,Expected clean output:,,0.0,Reject,PENALTY -20: No GitHub link provided | PENALTY -25: Answer is empty or too short | PENALTY -10: Missing email address
+24,```,,0.0,Reject,PENALTY -20: No GitHub link provided | PENALTY -25: Answer is empty or too short | PENALTY -10: Missing email address
+25,`````,,0.0,Reject,PENALTY -20: No GitHub link provided | PENALTY -25: Answer is empty or too short | PENALTY -10: Missing email address

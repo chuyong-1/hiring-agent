@@ -1,9 +1,55 @@
 name,email,github,answer,submitted_at
-Alice Johnson,alice@example.com,https://github.com/alicejohnson,"I built a REST API using FastAPI. Here is the core route: ```python\n@app.get('/users/{id}')\ndef get_user(id: int): return db.query(User).filter(User.id == id).first()\n```",2024-01-15 10:05:00
-Bob Smith,bob@example.com,,"This answer provides a comprehensive overview of my skills. I will delve into my experience with Python and machine learning.",2024-01-15 10:06:00
-Carol White,carol@example.com,https://github.com/carolwhite,"Implemented a binary search tree in Python: ```python\nclass Node:\n    def __init__(self, val): self.val=val; self.left=None; self.right=None\n```",2024-01-15 10:07:00
-David Lee,david@example.com,,"I am passionate about technology and hope to leverage my skills.",2024-01-15 10:08:00
-Eva Martinez,eva@example.com,https://github.com/evamartinez,"Designed a microservices architecture. Delve into my comprehensive overview of Docker orchestration.",2024-01-15 10:09:00
-Frank Brown,frank@example.com,https://github.com/frankb,"Built a full-stack app with React and Node. Wrote unit tests achieving 90% coverage.",2024-01-15 10:10:00
+Alice Johnson,alice@example.com,https://github.com/alicejohnson,"I built a production REST API using FastAPI deployed on AWS Lambda with API Gateway. I handled auth via JWT tokens and wrote pytest suites achieving 94% coverage. Here is the core route handler: ```python
+@app.get('/users/{id}')
+async def get_user(id: int, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.id == id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail='User not found')
+    return user
+`````",2024-01-15 10:05:00
+Bob Smith,bob@example.com,,"This answer provides a comprehensive overview of my skills. I will delve into my experience with Python and machine learning frameworks. I believe this gives a thorough and detailed perspective on my background.",2024-01-15 10:06:00
+Carol White,carol@example.com,https://github.com/carolwhite,"I implemented a self-balancing BST for a low-latency leaderboard service handling 10k writes per second. Profiled with py-spy and cut p99 latency from 120ms to 18ms by switching from a list to a heap. Core node implementation: ```python
+class Node:
+    def __init__(self, val, priority):
+        self.val = val
+        self.priority = priority
+        self.left = self.right = None
+        self.height = 1
+````",2024-01-15 10:07:00
+David Lee,david@example.com,,"I am passionate about technology and hope to leverage my skills in a meaningful way. I enjoy working in teams and learning new things every day.",2024-01-15 10:08:00
+Eva Martinez,eva@example.com,https://github.com/evamartinez,"I designed a microservices architecture with 8 services. I want to delve into the deployment side: I used Helm charts on Kubernetes and wrote a comprehensive overview of the runbook for on-call engineers. Each service had its own Postgres schema and communicated over gRPC.",2024-01-15 10:09:00
+Frank Brown,frank@example.com,https://github.com/frankb,"Built a full-stack inventory management app with React, Node.js, and PostgreSQL. Wrote integration tests with Cypress covering 40 user flows. Set up a CI/CD pipeline on GitHub Actions with automated rollback on failed health checks. Reduced deployment time from 45 minutes to 6 minutes.",2024-01-15 10:10:00
 Grace Kim,,,"",2024-01-15 10:11:00
-Henry Zhang,henry@example.com,https://github.com/henryz,"Developed a neural network from scratch: ```python\nimport numpy as np\ndef sigmoid(x): return 1/(1+np.exp(-x))\n```",2024-01-15 10:12:00
+Henry Zhang,henry@example.com,https://github.com/henryz,"Developed a feedforward neural network from scratch in NumPy to understand backpropagation before using PyTorch. Trained it on MNIST and hit 97.4% accuracy. Then reproduced the same architecture in PyTorch and benchmarked both implementations. Key layer implementation: ```python
+import numpy as np
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def forward(X, weights, biases):
+    activations = X
+    for W, b in zip(weights, biases):
+        activations = sigmoid(activations @ W + b)
+    return activations
+```",2024-01-15 10:12:00
+```
+
+Save the file, then verify the row count before running:
+```bash
+# Should print exactly 9 (1 header + 8 candidates)
+python -c "import pandas as pd; df = pd.read_csv('dummy_data.csv'); print(f'Rows loaded: {len(df)}')"
+```
+
+If it prints `Rows loaded: 8`, run:
+```bash
+python intelligence.py
+```
+
+Expected clean output:
+````
+▶ FAST-TRACK (3 candidates)  — Alice, Carol, Henry  → Score: 75
+▶ STANDARD   (2 candidates)  — Frank, Eva           → Score: 60, 44
+▶ REJECT     (3 candidates)  — Bob, David, Grace
+`````
+
+**Root cause:** When you copied the CSV content from my previous chat message, your editor also captured the surrounding markdown explanation text (the `**Expected output**` block and code fences). Pandas read every line as a new row. Always create CSV files by pasting only into a plain text editor with no markdown rendering.

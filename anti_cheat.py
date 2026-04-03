@@ -130,10 +130,13 @@ if __name__ == "__main__":
         {
             "name": "Fast Fiona",
             "answer": (
-                "I architected a microservices platform with 12 independent services "
-                "communicating over gRPC, implemented circuit breakers using Hystrix, "
-                "wrote comprehensive integration tests with pytest-asyncio, and "
-                "deployed everything to Kubernetes with Helm charts and ArgoCD."
+                "I architected a microservices platform with twelve independent services "
+                "communicating over gRPC with protobuf schemas. I implemented circuit breakers "
+                "using a custom retry decorator with exponential backoff, wrote comprehensive "
+                "integration tests with pytest-asyncio covering all failure modes, deployed "
+                "everything to Kubernetes using Helm charts with ArgoCD for GitOps, and "
+                "reduced mean deployment time from forty minutes down to under four minutes "
+                "by parallelising the build pipeline across self-hosted GitHub Actions runners."
             ),
             "sent":     now - timedelta(seconds=20),
             "received": now,

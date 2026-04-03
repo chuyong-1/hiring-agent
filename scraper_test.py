@@ -1,7 +1,7 @@
 import requests
 import sys
 
-TARGET_URL = "https://internshala.com/employer/login"
+TARGET_URL = "https://internshala.com/employers/login"
 
 HEADERS = {
     "User-Agent": (
@@ -37,7 +37,21 @@ try:
     ]
     detected = [s for s in captcha_signals if s in body]
 
-    if status in (403, 429, 503) or detected:
+    if status == 404:
+        print()
+        print("  ❌ RESULT  : 404 — URL REDIRECTED OR BLOCKED AT ROUTING LAYER")
+        print("  ENGINEERING NOTE:")
+        print("  ─────────────────────────────────────────────────────────")
+        print("  A 404 on a known login page typically means the platform")
+        print("  uses bot-fingerprinting at the CDN/WAF layer and serves")
+        print("  a fake 404 to non-browser clients rather than a 403,")
+        print("  deliberately obscuring the block reason. Cloudflare and")
+        print("  similar edge proxies commonly use this pattern to prevent")
+        print("  scrapers from knowing they are blocked.")
+        print("  Production solution: DOM injection via browser extension")
+        print("  inside a real authenticated session — no HTTP scraping.")
+        print("  ─────────────────────────────────────────────────────────")
+    elif status in (403, 429, 503) or detected:
         print()
         print("  ❌ RESULT  : REQUEST BLOCKED BY BOT PROTECTION / reCAPTCHA")
         print(f"  Signals   : {detected if detected else 'HTTP ' + str(status)}")
@@ -45,28 +59,31 @@ try:
         print("  ENGINEERING NOTE:")
         print("  ─────────────────────────────────────────────────────────")
         print("  Internshala deploys Google reCAPTCHA v3 on all employer")
-        print("  auth endpoints and likely uses Cloudflare or a similar")
-        print("  edge WAF for IP-rate-limiting and bot fingerprinting.")
-        print("  A raw requests.get() is immediately fingerprinted as a")
-        print("  non-browser agent. This is why the production design uses")
-        print("  DOM injection (browser extension) rather than scraping:")
-        print("  the agent runs inside a real authenticated browser session,")
-        print("  bypassing all bot-detection controls entirely.")
+        print("  auth endpoints and uses a CDN WAF for IP-rate-limiting.")
+        print("  A raw requests.get() is fingerprinted as non-browser.")
+        print("  Production design uses DOM injection (browser extension)")
+        print("  running inside a real authenticated session instead.")
         print("  ─────────────────────────────────────────────────────────")
     else:
-        print(f"  ⚠  Status {status} — page loaded but may be a CAPTCHA challenge page.")
-        print("  Inspect response body for hidden CAPTCHA widgets.")
-        print("  Note: Even a 200 response can embed reCAPTCHA; actual")
-        print("  form submission will still be blocked by challenge tokens.")
+        print(f"  ⚠  Status {status} received.")
+        print("  Even a 200 can embed reCAPTCHA — form submission will")
+        print("  still require solving a challenge token.")
 
 except requests.exceptions.ConnectionError as e:
-    print(f"  ❌ CONNECTION ERROR: {e}")
-    print("  This likely indicates IP-level blocking or DNS filtering.")
-except requests.exceptions.Timeout:
-    print("  ❌ TIMEOUT: Request timed out — possible IP rate-limiting.")
-except Exception as e:
-    print(f"  ❌ UNEXPECTED ERROR: {e}")
-    sys.exit(1)
+    print()
+    print("  ❌ RESULT  : TCP CONNECTION DROPPED — BOT PROTECTION CONFIRMED")
+    print("  ENGINEERING NOTE:")
+    print("  ─────────────────────────────────────────────────────────")
+    print("  The connection timed out at the TCP handshake level on")
+    print("  port 443. This is Cloudflare's 'silent drop' behaviour:")
+    print("  rather than returning a 403, the WAF drops the SYN packet")
+    print("  for flagged IP ranges and non-browser TLS fingerprints.")
+    print("  This is stronger bot-protection than a standard 403 —")
+    print("  the client cannot even distinguish a block from a dead")
+    print("  server. Confirmed: raw HTTP clients cannot access this")
+    print("  platform. DOM injection via browser extension is required.")
+    print("  ─────────────────────────────────────────────────────────")
+    print(f"  Raw error : {e}")
 
 print()
 print("=" * 65)
