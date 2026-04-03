@@ -1,0 +1,9 @@
+name,email,github,answer,submitted_at
+Alice Johnson,alice@example.com,https://github.com/alicejohnson,"I built a REST API using FastAPI. Here is the core route: ```python\n@app.get('/users/{id}')\ndef get_user(id: int): return db.query(User).filter(User.id == id).first()\n```",2024-01-15 10:05:00
+Bob Smith,bob@example.com,,"This answer provides a comprehensive overview of my skills. I will delve into my experience with Python and machine learning.",2024-01-15 10:06:00
+Carol White,carol@example.com,https://github.com/carolwhite,"Implemented a binary search tree in Python: ```python\nclass Node:\n    def __init__(self, val): self.val=val; self.left=None; self.right=None\n```",2024-01-15 10:07:00
+David Lee,david@example.com,,"I am passionate about technology and hope to leverage my skills.",2024-01-15 10:08:00
+Eva Martinez,eva@example.com,https://github.com/evamartinez,"Designed a microservices architecture. Delve into my comprehensive overview of Docker orchestration.",2024-01-15 10:09:00
+Frank Brown,frank@example.com,https://github.com/frankb,"Built a full-stack app with React and Node. Wrote unit tests achieving 90% coverage.",2024-01-15 10:10:00
+Grace Kim,,,"",2024-01-15 10:11:00
+Henry Zhang,henry@example.com,https://github.com/henryz,"Developed a neural network from scratch: ```python\nimport numpy as np\ndef sigmoid(x): return 1/(1+np.exp(-x))\n```",2024-01-15 10:12:00
