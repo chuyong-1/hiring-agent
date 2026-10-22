@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:000000,40:5C0000,100:FF1E1E&height=180&section=header&text=Hiring%20Agent&fontSize=50&fontColor=FFFFFF&fontAlignY=36&animation=fadeIn&desc=Rubric-based%20candidate%20ranking%20at%20scale&descSize=16&descAlignY=58&descColor=FFD6D6" alt="Hiring Agent" />
+</p>
+
 # Internshala Autonomous Hiring Agent
 
 An intelligent, autonomous hiring pipeline capable of parsing, scoring, and evaluating 1,000+ candidates at scale. Built as a modular microservices architecture.
